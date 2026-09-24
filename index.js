@@ -1,5 +1,4 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -8,23 +7,33 @@ const client = new Client({
     ]
 });
 
-client.once('ready', () => {
-    console.log(`البوت شغال وجاهز باسم: ${client.user.tag}`);
+// آيدي القناة المستخرج من الرابط الخاص بك
+const CHANNEL_ID = '1484827428483235860'; 
 
-    // تحديد الوقت: كل ساعة (60 دقيقة × 60 ثانية × 1000 مللي ثانية)
-    const intervalTime = 60 * 60 * 1000; 
+client.on('ready', () => {
+    console.log(`تم تسجيل الدخول بنجاح باسم ${client.user.tag}!`);
 
-    setInterval(() => {
-        // آي دي الشات حقك
-        const channelId = '1484827428483235860';
-        
-        const channel = client.channels.cache.get(channelId);
-        if (!channel) return;
-
-        // إرسال الكلمة كل ساعة
-        channel.send(':Ario:');
-        
-    }, intervalTime);
+    // إرسال رسالة تلقائية كل ساعة (3600000 ملي ثانية)
+    setInterval(async () => {
+        try {
+            const channel = await client.channels.fetch(CHANNEL_ID);
+            if (channel) {
+                channel.send(':Ario:');
+            }
+        } catch (error) {
+            console.error('خطأ أثناء إرسال الرسالة التلقائية:', error);
+        }
+    }, 3600000);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+// الرد فوراً عند منشن البوت
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+
+    // يتحقق إذا تم منشن البوت في الرسالة
+    if (message.mentions.has(client.user)) {
+        message.channel.send(':Ario:');
+    }
+});
+
+client.login('MTU1MjY3MTE4MzM3NDEyMzA2OQ.GSY2i0.DKx3kdxb5cxt54eBgBk7KXkF89CLqVYND2OH_w');
