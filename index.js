@@ -7,6 +7,15 @@ const client = new Client({
     ]
 });
 
+// آيدي القناة المستخرج من const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
+});
+
 // آيدي القناة المستخرج من الرابط الخاص بك
 const CHANNEL_ID = '1484827428483235860'; 
 
@@ -36,4 +45,5 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-client.login('MTU1MjY3MTE4MzM3NDEyMzA2OQ.GccNTm.iU0-YOzrx-4luoil01zQBEcGTl28kXraoUkftY');
+client.login('MTU1MjY3MTE4MzM3NDEyMzA2OQ.GGBXfB.lj7WmhjFHNq7c5blT17ESFlRzpZWPAl36yQAYc');
+
